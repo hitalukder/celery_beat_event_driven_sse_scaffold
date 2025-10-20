@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+celery[redis]
+redis
+requests
+pymongo
+python-dotenv
+aioredis
