@@ -88,3 +88,8 @@ npm start
 
 Frontend: http://localhost:3000
 
+### Stop all the services
+
+```sh
+podman compose down -v
+```
