@@ -14,12 +14,54 @@ This scaffold demonstrates an **event-driven microservice setup** using:
 
 ![alt text](architecture.png)
 
+## Project structure
+
+```txt
+.
+├── architecture.png
+├── backend
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── celery_app.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   ├── sse_manager.py
+│   │   └── tasks.py
+│   ├── Dockerfile
+│   └── requirements.txt
+├── docker-compose.yml
+├── frontend
+│   ├── Dockerfile
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   └── index.html
+│   └── src
+│       ├── api.js
+│       ├── App.js
+│       ├── components
+│       │   ├── Dashboard.js
+│       │   └── LiveUpdates.js
+│       └── index.js
+└── README.md
+
+```
+
 ## Getting Started with Podman (or Docker)
+
+clone the git repository to start
+
+```sh
+git clone git@github.com:hitalukder/celery_beat_event_driven_sse_scaffold.git
+cd celery_beat_event_driven_sse_scaffold
+```
 
 ### Build and Start All Services
 
 ```bash
-podman compose up --build
+podman compose up --build -d
 ```
 
 | Service           | Description                       |     Port |
@@ -33,7 +75,6 @@ podman compose up --build
 
 ### Access the Application
 
-- Frontend: http://localhost:3000
 - Backend (API): http://localhost:8000
 - Live Events: http://localhost:8000/events
 
@@ -42,5 +83,8 @@ podman compose up --build
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
 ```
+
+Frontend: http://localhost:3000
+
