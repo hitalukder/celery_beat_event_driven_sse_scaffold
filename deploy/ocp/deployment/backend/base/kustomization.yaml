@@ -1,0 +1,21 @@
+kind: Kustomization
+images:
+  - name: backend-image-name
+    newName: us.icr.io/htalukder-cr/celery_backend_app
+    newTag: 22102025-v2
+secretGenerator:
+- name: celery-task-secret
+  literals:
+    - REDIS_URL=redis://redis:6379/0
+    - MONGO_URL=mongodb://mongo:27017/
+    - DB_NAME=realtime_data
+    - PULL_INTERVAL=2.0
+    - API_URL=https://jsonplaceholder.typicode.com/todos/
+    - STOP_FLAG_KEY=STOP_FLAG_KEY
+resources:
+  - redis/
+  - mongodb/
+  - celery-worker/
+  - celery-beat/
+  - flower/
+  - backend/

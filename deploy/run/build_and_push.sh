@@ -4,9 +4,9 @@
 set -e
 
 # --- CONFIGURATION ---
-NAMESPACE_NAME="celery-container-registry"
+NAMESPACE_NAME="htalukder-cr"
 REGISTRY="us.icr.io"
-VERSION="v1"  # Increment manually when needed
+VERSION="v2"  # Increment manually when needed
 
 # --- HELP MENU ---
 usage() {

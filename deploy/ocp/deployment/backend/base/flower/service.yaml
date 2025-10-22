@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: flower-app
+  labels:
+    app: flower-app 
+spec:
+  ports:
+    - name: 5555-tcp
+      protocol: TCP
+      port: 5555
+      targetPort: 5555
+  type: ClusterIP
+  selector:
+    app: flower-app
+    deployment: flower-app

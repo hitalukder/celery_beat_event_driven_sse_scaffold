@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: celery-worker
+  labels:
+    app: celery-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-worker
+  template:
+    metadata:
+      labels:
+        app: celery-worker
+        deployment: celery-worker
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+    spec:
+      containers:
+        - resources:
+            requests:
+              memory: "4Gi"
+              cpu: "500m"
+            limits:
+              memory: "4Gi"
+              cpu: "1"
+          name: celery-worker
+          command:
+            - celery
+            - '-A'
+            - app.celery_app.celery_app
+            - worker
+            - '--loglevel=info'
+          envFrom:
+            - secretRef:
+                name: celery-task-secret
+          image: backend-image-name:latest
+      imagePullSecrets:
+        - name: ibm-cr-secret
+     

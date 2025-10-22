@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: celery-task-backend-srv
+  labels:
+    app: celery-task-backend
+spec:
+  ports:
+    - name: 8000-tcp
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
+  selector:
+    app: celery-task-backend
+    deployment: celery-task-backend

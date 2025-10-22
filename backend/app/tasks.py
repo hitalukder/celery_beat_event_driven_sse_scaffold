@@ -33,9 +33,9 @@ def pull_data_task():
     
     # threshold example
     if user_id % 2 == 0:
-        analyze_data_task.delay(user_id)
+        analyze_data_task.delay(user_id) ## submtting to the broker
 
-    redis_client.publish("sse_channel", f"pulled:{user_id}")
+    # redis_client.publish("sse_channel", f"pulled:{user_id}")
     return {"inserted_id": saved["inserted_id"]}
 
 
@@ -43,5 +43,5 @@ def pull_data_task():
 def analyze_data_task(record_id):
     result = {"record_id": str(record_id), "result": "analysis_done"}
     saved = save_analysis(result)
-    redis_client.publish("sse_channel", f"analyzed:{record_id}")
+    redis_client.publish("sse_channel", f"analyzed:{record_id}") # publising to the subject
     return {"record_id": result["record_id"], "db_inserted_id": saved["inserted_id"]}

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-beat
+  labels:
+    app: celery-beat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-beat
+  template:
+    metadata:
+      labels:
+        app: celery-beat
+        deployment: celery-beat
+    spec:
+      containers:
+        - name: celery-beat
+          image: backend-image-name:latest
+          command:
+            - celery
+            - "-A"
+            - app.celery_app.celery_app
+            - beat
+            - "--loglevel=info"
+            - "--schedule"
+            - "/tmp/celerybeat-schedule"
+          envFrom:
+            - secretRef:
+                name: celery-task-secret
+          resources:
+            requests:
+              memory: "4Gi"
+              cpu: "500m"
+            limits:
+              memory: "4Gi"
+              cpu: "1"
+          volumeMounts:
+            - name: beat-schedule
+              mountPath: /tmp
+      volumes:
+        - name: beat-schedule
+          emptyDir: {}
+      imagePullSecrets:
+        - name: ibm-cr-secret

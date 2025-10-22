@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: flower-app
+  labels:
+    app: flower-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flower-app
+  template:
+    metadata:
+      labels:
+        app: flower-app
+        deployment: flower-app
+    spec:
+      containers:
+        - resources:
+            requests:
+              memory: "4Gi"
+              cpu: "500m"
+            limits:
+              memory: "4Gi"
+              cpu: "1"
+          terminationMessagePath: /dev/termination-log
+          name: flower-app
+          command:
+            - celery
+            - '--broker=redis://redis:6379/0'
+            - flower
+            - '--port=5555'
+          ports:
+            - containerPort: 5555
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: celery-task-secret
+          image: backend-image-name:latest
+      imagePullSecrets:
+        - name: ibm-cr-secret

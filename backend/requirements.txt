@@ -6,3 +6,4 @@ requests
 pymongo
 python-dotenv
 aioredis
+flower==2.0.1
