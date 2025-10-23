@@ -61,8 +61,17 @@ Login to openshift console and copy login command
 Create a new project or use an existing project.
 
 ```sh
-oc new-project llm-judge
+oc new-project celery-beat-project
 ```
+
+**or**
+
+```sh
+oc project celery-beat-project
+```
+
+**Before deploying the project, make sure docker pull secret `ibm-cr-secret` is exist in the project.**
+
 
 Go to the ocp deployment directory
 
